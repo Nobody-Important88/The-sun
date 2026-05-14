@@ -1503,26 +1503,34 @@ function nearResetPanel() {
 const lighminigameEntranceX = 3420
 const lighminigameEntranceY = 5880
 
-const pieceImages = [
-    '',
-    '',
-    'lilyth3.jpg',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    ''
-]
-
+// 4 puzzles × 16 pieces each — swap these src paths for your actual images
+const pieceImages = {
+    1: [
+        'p1_01.jpg','p1_02.jpg','p1_03.jpg','p1_04.jpg',
+        'p1_05.jpg','p1_06.jpg','p1_07.jpg','p1_08.jpg',
+        'p1_09.jpg','p1_10.jpg','p1_11.jpg','p1_12.jpg',
+        'p1_13.jpg','p1_14.jpg','p1_15.jpg','p1_16.jpg'
+    ],
+    2: [
+        'p2_01.jpg','p2_02.jpg','p2_03.jpg','p2_04.jpg',
+        'p2_05.jpg','p2_06.jpg','p2_07.jpg','p2_08.jpg',
+        'p2_09.jpg','p2_10.jpg','p2_11.jpg','p2_12.jpg',
+        'p2_13.jpg','p2_14.jpg','p2_15.jpg','p2_16.jpg'
+    ],
+    3: [
+        'p3_01.jpg','p3_02.jpg','p3_03.jpg','p3_04.jpg',
+        'p3_05.jpg','p3_06.jpg','p3_07.jpg','p3_08.jpg',
+        'p3_09.jpg','p3_10.jpg','p3_11.jpg','p3_12.jpg',
+        'p3_13.jpg','p3_14.jpg','p3_15.jpg','p3_16.jpg'
+    ],
+    4: [
+        'p4_01.jpg','p4_02.jpg','p4_03.jpg','p4_04.jpg',
+        'p4_05.jpg','p4_06.jpg','p4_07.jpg','p4_08.jpg',
+        'p4_09.jpg','p4_10.jpg','p4_11.jpg','p4_12.jpg',
+        'p4_13.jpg','p4_14.jpg','p4_15.jpg','p4_16.jpg'
+    ]
+}
+    
 const PREV_SIZE = 800
 const DPR = window.devicePixelRatio || 2
 
@@ -2629,16 +2637,16 @@ function closePuzzle() {
 }
 
 document.getElementById('close').addEventListener('click', closePuzzle)
-
 function spawnPieces(id) {
     const state = puzzleStates[id]
     if (state.puzzlePieces.length > 0) return
+    const images = pieceImages[id]          // ← puzzle-specific images
     for (let i = 0; i < 16; i++) {
         const piece = document.createElement('div')
-        piece.className    = 'piece'
+        piece.className     = 'piece'
         piece.dataset.index = i
         const img = document.createElement('img')
-        img.src = pieceImages[i]
+        img.src = images[i]                 // ← was pieceImages[i]
         piece.appendChild(img)
         document.body.appendChild(piece)
         if (state.pieceData[i]) {
